@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">LoadingSkeletonApp</string>
+    <string name="sample_text">Sample Text</string>
+    <string name="description">Description</string>
+</resources>
