@@ -5,14 +5,14 @@ import com.github.tehras.loadingskeleton.R
 /**
  * This class will help the user to define the type of animation that will be used in this API
  */
-open class LoadingSkeletonAnimator private constructor(builder: Builder) {
+open class LoadingSkeletonAnimator private constructor() {
 
     var shimmer: Boolean = false
         private set
     var color: Int = -1
         private set
 
-    init {
+    private constructor(builder: Builder) : this() {
         this.shimmer = builder.shimmer
         this.color = builder.color
     }
