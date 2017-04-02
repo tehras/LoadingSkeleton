@@ -20,7 +20,5 @@ class MainActivity : AppCompatActivity() {
 
         startButton.setOnClickListener { loadingSkeleton.start() }
         stopButton.setOnClickListener { loadingSkeleton.stop() }
-
-//        v.addView(LoadingSkeleton.Builder(R.layout.layout_test).skeletonAnimator(LoadingSkeletonAnimator.Builder().shimmer(false).build()).build(this))
     }
 }

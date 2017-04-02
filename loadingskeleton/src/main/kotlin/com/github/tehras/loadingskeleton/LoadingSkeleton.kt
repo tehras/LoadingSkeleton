@@ -1,7 +1,6 @@
 package com.github.tehras.loadingskeleton
 
 import android.content.Context
-import android.os.Build
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
@@ -43,7 +42,17 @@ class LoadingSkeleton private constructor(context: Context, attrs: AttributeSet?
             throw RuntimeException("View must have 1 child")
 
         val container = getChildAt(0) as ViewGroup
+
+        if (container.id != containerViewId)
+            return
+
         val child = container.getChildAt(0)
+
+        if (container is ViewGroup) {
+            revertView(container, builder)
+        } else {
+            throw Exception("Layout must be a ViewGroup")
+        }
 
         container.removeView(child)
 
@@ -53,12 +62,15 @@ class LoadingSkeleton private constructor(context: Context, attrs: AttributeSet?
 
     fun start() {
         performWarningCheck()
-        
+
         builder?.let {
             if (childCount != 1)
                 throw RuntimeException("View must have 1 child")
 
             val layout = getChildAt(0)
+
+            if (layout.id == containerViewId)
+                return
 
             this.removeView(layout)
 
@@ -100,6 +112,22 @@ class LoadingSkeleton private constructor(context: Context, attrs: AttributeSet?
         }
     }
 
+    private fun revertView(v: ViewGroup?, builder: Builder?) {
+        builder?.let { builder ->
+            v?.let {
+                (0..v.childCount)
+                        .map { v.getChildAt(it) }
+                        .forEach {
+                            if (it is ViewGroup) {
+                                revertView(it, builder)
+                            } else if (it is View) {
+                                builder.skeletonViewConverter?.revertView(it)
+                            }
+                        }
+            }
+        }
+    }
+
     class Builder(val context: Context) {
         var skeletonAnimator: LoadingSkeletonAnimator? = null
             private set
@@ -119,6 +147,9 @@ class LoadingSkeleton private constructor(context: Context, attrs: AttributeSet?
         fun attach(view: LoadingSkeleton): LoadingSkeleton {
             skeletonAnimator.let {
                 skeletonAnimator = DefaultLoadingSkeletonAnimator.generate()
+            }
+            if (skeletonViewConverter == null) {
+                skeletonViewConverter = LoadingSkeletonViewConverter.Builder().build()
             }
 
             return view.attach(this)

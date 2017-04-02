@@ -1,23 +1,47 @@
 package com.github.tehras.loadingskeleton.view_streamers
 
 import android.content.Context
-import android.view.View
-import android.widget.ImageView
+import android.graphics.drawable.Drawable
 import android.widget.TextView
 import com.github.tehras.loadingskeleton.helpers.LoadingSkeletonViewStreamer
 
 /**
  * This is the Default Text View Streamer
  */
-class DefaultTextViewStreamer : LoadingSkeletonViewStreamer<TextView>() {
-    override fun <T> streamView(c: Context, v: T) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+class DefaultTextViewStreamer : LoadingSkeletonViewStreamer<TextView>(TextView::class.java) {
+
+    private var texts: ArrayList<CharSequence> = ArrayList()
+    private var colors: ArrayList<Drawable> = ArrayList()
+    private var index: Int = 0
+
+    override fun start() {
+        super.start()
+
+        texts = ArrayList()
+        colors = ArrayList()
     }
 
-    override fun convertToType(v: View): TextView? {
-        if (v is TextView)
-            return v
+    override fun stop() {
+        super.stop()
 
-        return null
+        index = 0
+    }
+
+    override fun revert(c: Context, v: TextView) {
+        val text = texts.getOrNull(index)
+        val background = colors.getOrNull(index)
+        text?.let {
+            v.text = text
+        }
+        v.background = background
+        index++
+    }
+
+    override fun convert(c: Context, v: TextView, color: Int) {
+        texts.add(v.text)
+        colors.add(v.background)
+
+        v.text = ""
+        v.setBackgroundResource(color)
     }
 }

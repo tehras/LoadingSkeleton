@@ -1,6 +1,7 @@
 package com.github.tehras.loadingskeleton.helpers
 
 import android.view.View
+import com.github.tehras.loadingskeleton.R
 import com.github.tehras.loadingskeleton.view_streamers.DefaultImageViewStreamer
 import com.github.tehras.loadingskeleton.view_streamers.DefaultTextViewStreamer
 
@@ -9,7 +10,9 @@ import com.github.tehras.loadingskeleton.view_streamers.DefaultTextViewStreamer
  */
 class LoadingSkeletonViewConverter private constructor() {
 
-    private lateinit var converters: ArrayList<LoadingSkeletonViewStreamer<Any>>
+    private lateinit var converters: ArrayList<LoadingSkeletonViewStreamer<*>>
+    private var isFirstConvert: Boolean = true
+    private var isFirstRevert: Boolean = true
 
     private constructor(builder: Builder) : this() {
         if (builder.converters == null) {
@@ -19,8 +22,8 @@ class LoadingSkeletonViewConverter private constructor() {
         }
     }
 
-    private fun defaultStreamers(): ArrayList<LoadingSkeletonViewStreamer<Any>> {
-        val converters: ArrayList<LoadingSkeletonViewStreamer<Any>> = ArrayList()
+    private fun defaultStreamers(): ArrayList<LoadingSkeletonViewStreamer<*>> {
+        val converters: ArrayList<LoadingSkeletonViewStreamer<*>> = ArrayList()
 
         converters.add(DefaultImageViewStreamer())
         converters.add(DefaultTextViewStreamer())
@@ -30,20 +33,32 @@ class LoadingSkeletonViewConverter private constructor() {
 
     fun convertView(view: View) {
         converters.forEach { converter ->
-            val t = converter.convertToType(view)
-            t?.let {
-                converter.streamView(view.context, t)
-            }
+            if (isFirstConvert)
+                converter.start()
+            converter.convertView(view.context, view, R.color.default_animation_color)
         }
+        isFirstRevert = true
+        isFirstConvert = false
     }
 
+    fun revertView(view: View) {
+        converters.forEach { converter ->
+            if (isFirstRevert)
+                converter.stop()
+            converter.revertView(view.context, view)
+        }
+        isFirstConvert = true
+        isFirstRevert = false
+    }
+
+
     class Builder {
-        var converters: ArrayList<LoadingSkeletonViewStreamer<Any>>? = null
+        var converters: ArrayList<LoadingSkeletonViewStreamer<*>>? = null
             private set
 
-        fun addConvert(converter: LoadingSkeletonViewStreamer<Any>): Builder {
+        fun addConvert(converter: LoadingSkeletonViewStreamer<*>): Builder {
             if (this.converters == null)
-                this.converters = ArrayList<LoadingSkeletonViewStreamer<Any>>()
+                this.converters = ArrayList()
 
             this.converters!!.add(converter)
             return this
@@ -53,5 +68,6 @@ class LoadingSkeletonViewConverter private constructor() {
             return LoadingSkeletonViewConverter(this)
         }
     }
+
 
 }
