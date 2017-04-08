@@ -128,7 +128,7 @@ class LoadingSkeleton private constructor(context: Context, attrs: AttributeSet?
         }
     }
 
-    class Builder(val context: Context) {
+    class Builder {
         var skeletonAnimator: LoadingSkeletonAnimator? = null
             private set
         var skeletonViewConverter: LoadingSkeletonViewConverter? = null

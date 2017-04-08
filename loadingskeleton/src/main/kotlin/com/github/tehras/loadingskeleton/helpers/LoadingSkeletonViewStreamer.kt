@@ -15,8 +15,18 @@ abstract class LoadingSkeletonViewStreamer<T : View>(val clazz: Class<T>) {
         return clazz.isAssignableFrom(v.javaClass)
     }
 
-    open fun start() {}
+    /**
+     * This method is called when start Loading Skeleton is called
+     * Override this if you need to clear/start any variables that you're keeping track off
+     */
+    open fun start() {
+    }
 
+
+    /**
+     * This method is called when stop Loading Skeleton is called
+     * Override this if you need to clear/start any variables that you're keeping track off
+     */
     open fun stop() {}
 
     fun convertView(c: Context, v: View, color: Int) {
