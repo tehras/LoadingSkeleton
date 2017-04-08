@@ -1,1 +1,1 @@
-include ':app', ':loadingskeleton-library'
+include ':app', ':library'
