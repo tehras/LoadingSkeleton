@@ -5,6 +5,7 @@ android:
     - tools
     - platform-tools
     - build-tools-25.0.2
+    - support-repository
     - android-25
     - extra
 
