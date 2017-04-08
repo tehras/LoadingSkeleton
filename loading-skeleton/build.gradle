@@ -1,50 +1,56 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
-repositories {
-    maven { url 'https://dl.bintray.com/tehras/maven/' }
-}
+apply plugin: 'com.github.dcendents.android-maven'
+
+
+//group = GROUP
+//version = VERSION_NAME
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+
+    resourcePrefix 'loading_skeleton_'
+
     defaultConfig {
-        applicationId "com.github.tehras.loadingskeletonapp"
         minSdkVersion 17
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
 }
+
+tasks.withType(Javadoc).all { enabled = false }
+//tasks.withType(Javadoc) {
+//    options.addStringOption('Xdoclint:none', '-quiet')
+//    options.addStringOption('encoding', 'UTF-8')
+//}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
     testCompile 'junit:junit:4.12'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
-    compile 'com.github.tehras:loading-skeleton:0.0.4'
-//
-//    compile project(':loading-skeleton')
+    compile 'com.facebook.shimmer:shimmer:0.1.0@aar'
 }
-repositories {
-    mavenCentral()
-}
+
+apply from: file('gradle/bintray.gradle')
+
+// Place it at the end of the file
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'

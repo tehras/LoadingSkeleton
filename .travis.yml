@@ -23,6 +23,8 @@ jdk:
 script:
   - chmod +x gradlew
   - ./gradlew clean build
+  - ./gradlew install
+  - ./gradlew bintrayUpload
 
 cache:
   directories:
