@@ -11,7 +11,7 @@ ext {
     siteUrl = 'https://github.com/tehras/LoadingSkeleton'
     gitUrl = 'https://github.com/tehras/LoadingSkeleton.git'
 
-    libraryVersion = '0.0.4'
+    libraryVersion = "0.0.$TRAVIS_BUILD_NUMBER"
 
     developerId = 'tehras'
     developerName = 'Taras Koshkin'
