@@ -21,6 +21,9 @@ class LoadingSkeleton private constructor(context: Context, attrs: AttributeSet?
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context) : this(context, null)
 
+    /**
+     * This is assigned to the temporary Container layout
+     */
     private val containerViewId: Int = 10001
     private var builder: Builder? = null
 
@@ -129,9 +132,9 @@ class LoadingSkeleton private constructor(context: Context, attrs: AttributeSet?
     }
 
     class Builder {
-        var skeletonAnimator: LoadingSkeletonAnimator? = null
+        internal var skeletonAnimator: LoadingSkeletonAnimator? = null
             private set
-        var skeletonViewConverter: LoadingSkeletonViewConverter? = null
+        internal var skeletonViewConverter: LoadingSkeletonViewConverter? = null
             private set
 
         fun skeletonAnimator(skeletonAnimator: LoadingSkeletonAnimator): Builder {
@@ -145,7 +148,7 @@ class LoadingSkeleton private constructor(context: Context, attrs: AttributeSet?
         }
 
         fun attach(view: LoadingSkeleton): LoadingSkeleton {
-            skeletonAnimator.let {
+            if (skeletonAnimator == null) {
                 skeletonAnimator = DefaultLoadingSkeletonAnimator.generate()
             }
             if (skeletonViewConverter == null) {

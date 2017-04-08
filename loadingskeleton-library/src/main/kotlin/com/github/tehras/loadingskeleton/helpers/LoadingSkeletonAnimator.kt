@@ -7,29 +7,16 @@ import com.github.tehras.loadingskeleton.R
  */
 open class LoadingSkeletonAnimator private constructor() {
 
-    var shimmer: Boolean = false
-        private set
-    var color: Int = -1
+    var shimmer: Boolean = true
         private set
 
     private constructor(builder: Builder) : this() {
         this.shimmer = builder.shimmer
-        this.color = builder.color
     }
 
     class Builder {
-        var color: Int = R.color.default_animation_color//-1 Denotes default
+        internal var shimmer: Boolean = true
             private set
-        var shimmer: Boolean = false
-            private set
-
-        /**
-         * Please make sure this is ColorRes
-         */
-        fun color(color: Int): Builder {
-            this.color = color
-            return this
-        }
 
         fun shimmer(enableShimmer: Boolean): Builder {
             this.shimmer = enableShimmer

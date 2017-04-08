@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import com.github.tehras.loadingskeleton.LoadingSkeleton
+import com.github.tehras.loadingskeleton.helpers.LoadingSkeletonViewConverter
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val v = findViewById(R.id.include_2)
-        val loadingSkeleton = LoadingSkeleton.Builder().attach(v as LoadingSkeleton)
+        val loadingSkeleton = LoadingSkeleton.Builder().skeletonViewConverter(LoadingSkeletonViewConverter.Builder().color(R.color.colorPrimary).build()).attach(v as LoadingSkeleton)
 
         val startButton: Button = findViewById(R.id.start_button) as Button
         val stopButton: Button = findViewById(R.id.stop_button) as Button

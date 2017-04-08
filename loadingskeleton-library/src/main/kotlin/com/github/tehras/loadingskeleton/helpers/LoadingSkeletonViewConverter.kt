@@ -13,6 +13,7 @@ class LoadingSkeletonViewConverter private constructor() {
     private lateinit var converters: ArrayList<LoadingSkeletonViewStreamer<*>>
     private var isFirstConvert: Boolean = true
     private var isFirstRevert: Boolean = true
+    private var color: Int? = null
 
     private constructor(builder: Builder) : this() {
         if (builder.converters == null) {
@@ -20,6 +21,8 @@ class LoadingSkeletonViewConverter private constructor() {
         } else {
             this.converters = builder.converters!!
         }
+
+        this.color = builder.color
     }
 
     private fun defaultStreamers(): ArrayList<LoadingSkeletonViewStreamer<*>> {
@@ -35,7 +38,7 @@ class LoadingSkeletonViewConverter private constructor() {
         converters.forEach { converter ->
             if (isFirstConvert)
                 converter.start()
-            converter.convertView(view.context, view, R.color.default_animation_color)
+            converter.convertView(view.context, view, this.color!!)
         }
         isFirstRevert = true
         isFirstConvert = false
@@ -51,10 +54,17 @@ class LoadingSkeletonViewConverter private constructor() {
         isFirstRevert = false
     }
 
-
+    @Suppress("unused")
     class Builder {
         var converters: ArrayList<LoadingSkeletonViewStreamer<*>>? = null
             private set
+        var color: Int? = null
+
+        fun color(color: Int): Builder {
+            this.color = color
+
+            return this
+        }
 
         fun addConvert(converter: LoadingSkeletonViewStreamer<*>): Builder {
             if (this.converters == null)
@@ -65,6 +75,9 @@ class LoadingSkeletonViewConverter private constructor() {
         }
 
         fun build(): LoadingSkeletonViewConverter {
+            if (this.color == null)
+                this.color = R.color.default_animation_color
+
             return LoadingSkeletonViewConverter(this)
         }
     }
