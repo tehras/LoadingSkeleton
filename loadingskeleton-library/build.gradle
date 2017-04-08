@@ -8,7 +8,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
 
-    resourcePrefix 'loading-skeleton_'
+    resourcePrefix 'loading_skeleton_'
 
     defaultConfig {
         minSdkVersion 17
@@ -19,6 +19,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -29,6 +30,8 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 }
+
+tasks.withType(Javadoc).all { enabled = false }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])

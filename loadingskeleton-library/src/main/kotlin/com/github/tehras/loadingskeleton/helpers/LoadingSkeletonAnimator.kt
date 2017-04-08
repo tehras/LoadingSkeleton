@@ -1,7 +1,5 @@
 package com.github.tehras.loadingskeleton.helpers
 
-import com.github.tehras.loadingskeleton.R
-
 /**
  * This class will help the user to define the type of animation that will be used in this API
  */

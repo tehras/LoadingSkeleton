@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="default_animation_color">#9E9E9E</color>
+    <color name="loading_skeleton_default_animation_color">#9E9E9E</color>
 </resources>

@@ -76,7 +76,7 @@ class LoadingSkeletonViewConverter private constructor() {
 
         fun build(): LoadingSkeletonViewConverter {
             if (this.color == null)
-                this.color = R.color.default_animation_color
+                this.color = R.color.loading_skeleton_default_animation_color
 
             return LoadingSkeletonViewConverter(this)
         }
