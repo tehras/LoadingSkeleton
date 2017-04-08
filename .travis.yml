@@ -12,6 +12,7 @@ jdk:
   - oraclejdk8
 
 script:
+  - chmod +x gradlew
   - ./gradlew clean build
 
 cache:
