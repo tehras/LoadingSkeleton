@@ -38,6 +38,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
+//    compile 'com.github.tehras:loadingskeleton:0.0.1'
+//
     compile project(':library')
 }
 repositories {

@@ -1,8 +1,13 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
-group = GROUP
-version = VERSION_NAME
+apply plugin: 'com.github.dcendents.android-maven'
+
+//group = GROUP
+//version = VERSION_NAME
+
+group = 'com.github.tehras'
+version = '0.0.1'
 
 android {
     compileSdkVersion 25
@@ -46,5 +51,84 @@ dependencies {
     compile 'com.facebook.shimmer:shimmer:0.1.0@aar'
 }
 
-apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+////apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+//
+//install {
+//    repositories.mavenInstaller {
+//        pom.project {
+//            name 'LoadingSkeleton'
+//            description 'A view that will create Facebook-like empty loading view'
+//            url 'https://github.com/tehras/LoadingSkeleton'
+//            inceptionYear '2017'
+//
+//            packaging 'aar'
+//            groupId 'com.github.tehras'
+//            artifactId 'loading-skeleton'
+//            version '0.1'
+//
+//            licenses {
+//                license {
+//                    name 'The Apache Software License, Version 2.0'
+//                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+//                    distribution 'repo'
+//                }
+//            }
+//            scm {
+//                connection 'https://github.com/tehras/LoadingSkeleton.git'
+//                url 'https://github.com/tehras/LoadingSkeleton'
+//
+//            }
+//            developers {
+//                developer {
+//                    name 'Taras Koshkin'
+//                }
+//            }
+//        }
+//    }
+//}
+//
+//bintray {
+//    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+//    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+//    configurations = ['archives']
+//    pkg {
+//        repo = 'maven'
+//        name = 'loading-skeleton'
+//        userOrg = user
+//        licenses = ['Apache-2.0']
+//        vcsUrl = 'https://github.com/bintray/gradle-bintray-plugin.git'
+//        version {
+//            name = '0.1'
+//            desc = 'Loading Skeleton Development version'
+//            vcsTag = '0.1'
+//            attributes = ['gradle-plugin': 'com.github.tehras:loading-skeleton']
+//        }
+//    }
+//}
 
+// build a jar with source files
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.compile
+}
+
+// build a jar with javadoc
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+repositories {
+    mavenCentral()
+}
