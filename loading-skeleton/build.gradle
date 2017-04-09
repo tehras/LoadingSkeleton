@@ -49,9 +49,4 @@ dependencies {
     compile 'com.facebook.shimmer:shimmer:0.1.0@aar'
 }
 
-apply from: file('gradle/bintray.gradle')
-
-// Place it at the end of the file
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-
-apply from: file('gradle/bintray-upload.gradle')
+apply from: file('gradle/buildAndDeploy.gradle')

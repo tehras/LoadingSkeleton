@@ -22,9 +22,7 @@ jdk:
 
 script:
   - chmod +x gradlew
-  - ./gradlew clean build
-  - ./gradlew install
-  - ./gradlew bintrayUpload
+  - ./gradlew buildAndUpload
 
 cache:
   directories:
