@@ -12,8 +12,6 @@ android:
     - build-tools-25.0.2
     - support-repository
     - android-25
-    - extra
-    - extra-google-m2repository
     - extra-android-m2repository
 
 
@@ -22,6 +20,7 @@ jdk:
 
 script:
   - chmod +x gradlew
+  - ./gradlew clean build
   - ./gradlew buildAndUpload
 
 cache:
