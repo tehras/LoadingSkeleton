@@ -24,6 +24,7 @@ plugins {
     id "com.jfrog.bintray" version "1.7.3"
 }
 apply plugin: 'kotlin'
+apply from: file('gradle/buildAndDeploy.gradle')
 
 allprojects {
     repositories {
@@ -38,4 +39,3 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 }
 
-apply from: file('gradle/buildAndDeploy.gradle')
