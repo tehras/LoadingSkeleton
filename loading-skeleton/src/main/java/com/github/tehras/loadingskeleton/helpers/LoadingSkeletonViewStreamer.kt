@@ -27,14 +27,15 @@ abstract class LoadingSkeletonViewStreamer<T : View>(val clazz: Class<T>) {
      * This method is called when stop Loading Skeleton is called
      * Override this if you need to clear/start any variables that you're keeping track off
      */
-    open fun stop() {}
+    open fun stop() {
+    }
 
-    fun convertView(c: Context, v: View, color: Int) {
+    fun convertView(c: Context, v: View, options: Options) {
         Log.d(TAG, "convertView - ${v.javaClass.simpleName}")
         if (checkType(v)) {
             Log.d(TAG, "convert is being called")
             @Suppress("UNCHECKED_CAST")
-            convert(c, v as T, color)
+            convert(c, v as T, options)
         }
     }
 
@@ -47,6 +48,6 @@ abstract class LoadingSkeletonViewStreamer<T : View>(val clazz: Class<T>) {
         }
     }
 
-    abstract fun convert(c: Context, v: T, color: Int)
+    abstract fun convert(c: Context, v: T, options: Options)
     abstract fun revert(c: Context, v: T)
 }

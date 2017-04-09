@@ -13,13 +13,22 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        val v = findViewById(R.id.include_2)
-        val loadingSkeleton = LoadingSkeleton.Builder().skeletonViewConverter(LoadingSkeletonViewConverter.Builder().color(R.color.colorPrimary).build()).attach(v as LoadingSkeleton)
+        val shimmerView = findViewById(R.id.include_2) as LoadingSkeleton
+        shimmerView.skeletonViewConverter(LoadingSkeletonViewConverter.Builder().color(R.color.colorPrimary).build())
+
+        val normalView = findViewById(R.id.include) as LoadingSkeleton
+        normalView.skeletonViewConverter(LoadingSkeletonViewConverter.Builder().color(R.color.colorPrimary).shimmer(false).build())
 
         val startButton: Button = findViewById(R.id.start_button) as Button
         val stopButton: Button = findViewById(R.id.stop_button) as Button
 
-        startButton.setOnClickListener { loadingSkeleton.start() }
-        stopButton.setOnClickListener { loadingSkeleton.stop() }
+        startButton.setOnClickListener {
+            shimmerView.start()
+            normalView.start()
+        }
+        stopButton.setOnClickListener {
+            shimmerView.stop()
+            normalView.stop()
+        }
     }
 }

@@ -1,9 +1,0 @@
-diff a/app/src/main/kotlin/com/github/tehras/loadingskeletonapp/MainActivity.kt b/app/src/main/kotlin/com/github/tehras/loadingskeletonapp/MainActivity.kt	(rejected hunks)
-@@ -4,6 +4,7 @@
- import android.support.v7.app.AppCompatActivity
- import android.widget.Button
- import com.github.tehras.loadingskeleton.LoadingSkeleton
-+import com.github.tehras.loadingskeleton.helpers.LoadingSkeletonAnimator
- 
- class MainActivity : AppCompatActivity() {
- 

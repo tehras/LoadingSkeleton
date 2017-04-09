@@ -4,6 +4,8 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.widget.TextView
 import com.github.tehras.loadingskeleton.helpers.LoadingSkeletonViewStreamer
+import com.github.tehras.loadingskeleton.helpers.Options
+import com.github.tehras.loadingskeleton.utils.assignBackground
 
 /**
  * This is the Default Text View Streamer
@@ -37,11 +39,12 @@ class DefaultTextViewStreamer : LoadingSkeletonViewStreamer<TextView>(TextView::
         index++
     }
 
-    override fun convert(c: Context, v: TextView, color: Int) {
+    override fun convert(c: Context, v: TextView, options: Options) {
         texts.add(v.text)
         colors.add(v.background)
 
         v.text = ""
-        v.setBackgroundResource(color)
+
+        assignBackground(options, v)
     }
 }

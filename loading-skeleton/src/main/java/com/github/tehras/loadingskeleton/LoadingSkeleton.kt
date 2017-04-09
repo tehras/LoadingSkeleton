@@ -2,13 +2,10 @@ package com.github.tehras.loadingskeleton
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.facebook.shimmer.ShimmerFrameLayout
-import com.github.tehras.loadingskeleton.animators.DefaultLoadingSkeletonAnimator
-import com.github.tehras.loadingskeleton.helpers.LoadingSkeletonAnimator
 import com.github.tehras.loadingskeleton.helpers.LoadingSkeletonViewConverter
 
 /**
@@ -25,22 +22,19 @@ class LoadingSkeleton private constructor(context: Context, attrs: AttributeSet?
      * This is assigned to the temporary Container layout
      */
     private val containerViewId: Int = 10001
-    private var builder: Builder? = null
+    var skeletonViewConverter: LoadingSkeletonViewConverter
 
-    private fun attach(builder: Builder): LoadingSkeleton {
-        this.builder = builder
+    init {
+        skeletonViewConverter = LoadingSkeletonViewConverter.Builder().build()
+    }
+
+    fun skeletonViewConverter(skeletonViewConverter: LoadingSkeletonViewConverter): LoadingSkeleton {
+        this.skeletonViewConverter = skeletonViewConverter
+
         return this
     }
 
-    private fun performWarningCheck() {
-        if (builder == null)
-            Log.e(this.javaClass.simpleName, "Please use LoadingSkeleton.Builder().attach() in order to use the loading effects")
-
-    }
-
     fun stop() {
-        performWarningCheck()
-
         if (childCount != 1)
             throw RuntimeException("View must have 1 child")
 
@@ -52,7 +46,7 @@ class LoadingSkeleton private constructor(context: Context, attrs: AttributeSet?
         val child = container.getChildAt(0)
 
         if (container is ViewGroup) {
-            revertView(container, builder)
+            revertView(container, this.skeletonViewConverter)
         } else {
             throw Exception("Layout must be a ViewGroup")
         }
@@ -64,98 +58,65 @@ class LoadingSkeleton private constructor(context: Context, attrs: AttributeSet?
     }
 
     fun start() {
-        performWarningCheck()
+        if (childCount != 1)
+            throw RuntimeException("View must have 1 child")
 
-        builder?.let {
-            if (childCount != 1)
-                throw RuntimeException("View must have 1 child")
+        val layout = getChildAt(0)
 
-            val layout = getChildAt(0)
+        if (layout.id == containerViewId)
+            return
 
-            if (layout.id == containerViewId)
-                return
+        this.removeView(layout)
 
-            this.removeView(layout)
-
-            if (layout is ViewGroup) {
-                populateView(layout, it)
-            } else {
-                throw Exception("Layout must be a ViewGroup")
-            }
-
-            val container: ViewGroup
-
-            if (it.skeletonAnimator?.shimmer ?: true) {
-                container = ShimmerFrameLayout(context)
-            } else {
-                container = FrameLayout(context)
-            }
-            container.id = containerViewId
-            container.addView(layout)
-
-            if (container is ShimmerFrameLayout) {
-                container.startShimmerAnimation()
-            }
-
-            this.addView(container)
+        if (layout is ViewGroup) {
+            populateView(layout, skeletonViewConverter)
+        } else {
+            throw Exception("Layout must be a ViewGroup")
         }
+
+        val container: ViewGroup
+
+        if (this.skeletonViewConverter.shimmerEnabled()) {
+            container = ShimmerFrameLayout(context)
+        } else {
+            container = FrameLayout(context)
+        }
+        container.id = containerViewId
+        container.addView(layout)
+
+        if (container is ShimmerFrameLayout) {
+            container.startShimmerAnimation()
+        }
+
+        this.addView(container)
     }
 
-    private fun populateView(v: ViewGroup?, builder: Builder) {
+    private fun populateView(v: ViewGroup?, viewConverter: LoadingSkeletonViewConverter) {
         v?.let {
             (0..v.childCount)
                     .map { v.getChildAt(it) }
                     .forEach {
                         if (it is ViewGroup) {
-                            populateView(it, builder)
+                            populateView(it, viewConverter)
                         } else if (it is View) {
-                            builder.skeletonViewConverter?.convertView(it)
+                            viewConverter.convertView(it)
                         }
                     }
         }
     }
 
-    private fun revertView(v: ViewGroup?, builder: Builder?) {
-        builder?.let { builder ->
-            v?.let {
-                (0..v.childCount)
-                        .map { v.getChildAt(it) }
-                        .forEach {
-                            if (it is ViewGroup) {
-                                revertView(it, builder)
-                            } else if (it is View) {
-                                builder.skeletonViewConverter?.revertView(it)
-                            }
+    private fun revertView(v: ViewGroup?, viewConverter: LoadingSkeletonViewConverter) {
+        v?.let {
+            (0..v.childCount)
+                    .map { v.getChildAt(it) }
+                    .forEach {
+                        if (it is ViewGroup) {
+                            revertView(it, viewConverter)
+                        } else if (it is View) {
+                            viewConverter.revertView(it)
                         }
-            }
+                    }
         }
     }
 
-    class Builder {
-        internal var skeletonAnimator: LoadingSkeletonAnimator? = null
-            private set
-        internal var skeletonViewConverter: LoadingSkeletonViewConverter? = null
-            private set
-
-        fun skeletonAnimator(skeletonAnimator: LoadingSkeletonAnimator): Builder {
-            this.skeletonAnimator = skeletonAnimator
-            return this
-        }
-
-        fun skeletonViewConverter(skeletonViewConverter: LoadingSkeletonViewConverter): Builder {
-            this.skeletonViewConverter = skeletonViewConverter
-            return this
-        }
-
-        fun attach(view: LoadingSkeleton): LoadingSkeleton {
-            if (skeletonAnimator == null) {
-                skeletonAnimator = DefaultLoadingSkeletonAnimator.generate()
-            }
-            if (skeletonViewConverter == null) {
-                skeletonViewConverter = LoadingSkeletonViewConverter.Builder().build()
-            }
-
-            return view.attach(this)
-        }
-    }
 }

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.github.tehras.loadingskeletonapp.MainActivity">
 
     <include
@@ -29,6 +28,7 @@
         layout="@layout/layout_test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/include"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -46,14 +46,24 @@
         android:id="@+id/start_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/stop_button"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:text="Start" />
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@android:color/holo_green_dark"
+        android:text="Start"
+        android:textColor="@android:color/white" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/stop_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:text="Stop" />
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:text="Stop"
+        android:textColor="@android:color/white" />
 
-</LinearLayout>
+</RelativeLayout>

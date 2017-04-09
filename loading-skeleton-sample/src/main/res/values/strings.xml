@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LoadingSkeletonApp</string>
+    <string name="app_name">Loading Skeleton Sample App</string>
     <string name="sample_text">Sample Text</string>
     <string name="description">Description</string>
 </resources>

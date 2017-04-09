@@ -1,10 +1,12 @@
 package com.github.tehras.loadingskeleton.view_streamers
 
 import android.content.Context
-import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.github.tehras.loadingskeleton.helpers.LoadingSkeletonViewStreamer
+import com.github.tehras.loadingskeleton.helpers.Options
+import com.github.tehras.loadingskeleton.utils.assignBackground
+
 
 /**
  * This is the Default Image View Streamer
@@ -31,20 +33,17 @@ class DefaultImageViewStreamer : LoadingSkeletonViewStreamer<ImageView>(ImageVie
             v.drawable.clearColorFilter()
         }
 
+        v.background = null
         v.setImageDrawable(drawables[index])
         index++
     }
 
-    override fun convert(c: Context, v: ImageView, color: Int) {
+    override fun convert(c: Context, v: ImageView, options: Options) {
         drawables.add(v.drawable)
         v.setImageDrawable(null)
 
-        //re-assign drawable
-        @Suppress("DEPRECATION")
-        v.setImageDrawable(c.resources.getDrawable(color))
-
-        v.drawable.setColorFilter(color, PorterDuff.Mode.DST_OVER)
-        v.drawable.setColorFilter(color, PorterDuff.Mode.DST_ATOP)
+        assignBackground(options, v)
     }
+
 
 }

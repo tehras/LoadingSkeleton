@@ -10,10 +10,10 @@ import com.github.tehras.loadingskeleton.view_streamers.DefaultTextViewStreamer
  */
 class LoadingSkeletonViewConverter private constructor() {
 
+    private lateinit var options: Options
     private lateinit var converters: ArrayList<LoadingSkeletonViewStreamer<*>>
     private var isFirstConvert: Boolean = true
     private var isFirstRevert: Boolean = true
-    private var color: Int? = null
 
     private constructor(builder: Builder) : this() {
         if (builder.converters == null) {
@@ -22,7 +22,12 @@ class LoadingSkeletonViewConverter private constructor() {
             this.converters = builder.converters!!
         }
 
-        this.color = builder.color
+        this.options = Options(builder.gradient, builder.shimmer, builder.cornerRadius, builder.color)
+    }
+
+
+    fun shimmerEnabled(): Boolean {
+        return options.shimmer
     }
 
     private fun defaultStreamers(): ArrayList<LoadingSkeletonViewStreamer<*>> {
@@ -38,7 +43,7 @@ class LoadingSkeletonViewConverter private constructor() {
         converters.forEach { converter ->
             if (isFirstConvert)
                 converter.start()
-            converter.convertView(view.context, view, this.color!!)
+            converter.convertView(view.context, view, options)
         }
         isFirstRevert = true
         isFirstConvert = false
@@ -56,13 +61,29 @@ class LoadingSkeletonViewConverter private constructor() {
 
     @Suppress("unused")
     class Builder {
-        var converters: ArrayList<LoadingSkeletonViewStreamer<*>>? = null
+        internal var converters: ArrayList<LoadingSkeletonViewStreamer<*>>? = null
             private set
-        var color: Int? = null
+        internal var color: Int = R.color.loading_skeleton_default_animation_color
+            private set
+        internal var cornerRadius: Float = 5f
+            private set
+        internal var gradient: Boolean = true
+            private set
+        internal var shimmer: Boolean = true
+            private set
 
         fun color(color: Int): Builder {
             this.color = color
+            return this
+        }
 
+        fun gradient(gradient: Boolean): Builder {
+            this.gradient = gradient
+            return this
+        }
+
+        fun shimmer(shimmer: Boolean): Builder {
+            this.shimmer = shimmer
             return this
         }
 
@@ -75,12 +96,8 @@ class LoadingSkeletonViewConverter private constructor() {
         }
 
         fun build(): LoadingSkeletonViewConverter {
-            if (this.color == null)
-                this.color = R.color.loading_skeleton_default_animation_color
-
             return LoadingSkeletonViewConverter(this)
         }
     }
-
 
 }
