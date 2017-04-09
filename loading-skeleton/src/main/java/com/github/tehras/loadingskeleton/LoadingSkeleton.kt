@@ -13,7 +13,7 @@ import com.github.tehras.loadingskeleton.helpers.LoadingSkeletonViewConverter
  * great looking Facebook-like loading skeleton
  */
 @Suppress("unused")
-class LoadingSkeleton private constructor(context: Context, attrs: AttributeSet?, defStyleAttrs: Int) : FrameLayout(context, attrs, defStyleAttrs) {
+class LoadingSkeleton constructor(context: Context, attrs: AttributeSet?, defStyleAttrs: Int) : FrameLayout(context, attrs, defStyleAttrs) {
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context) : this(context, null)

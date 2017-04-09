@@ -34,7 +34,7 @@ android {
     }
 }
 
-//tasks.withType(Javadoc).all { enabled = false }
+tasks.withType(Javadoc).all { enabled = false }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
