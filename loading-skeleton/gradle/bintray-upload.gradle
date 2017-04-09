@@ -40,8 +40,8 @@ bintray {
     user = properties != null ? properties.getProperty('bintray.user') : System.getenv('bintray.user')
     key = properties != null ? properties.getProperty('bintray.apikey') : System.getenv('bintray.apikey')
 
-    System.println("user -> " + ' $user')
-    System.println("key -> " + ' $user')
+    System.println("user -> " + " $user")
+    System.println("key -> " + " $user")
 
     configurations = ['archives']
     pkg {
