@@ -5,17 +5,10 @@ apply from: file('gradle/bintray-upload.gradle')
 
 task buildAndDeploy {
     if ((System.env.TRAVIS_TAG != null && !System.env.TRAVIS_TAG.isEmpty())) {
-        dependsOn 'clean'
-        dependsOn 'build'
         dependsOn 'install'
         dependsOn 'bintrayUpload'
-        tasks.findByName('build').mustRunAfter 'clean'
-        tasks.findByName('install').mustRunAfter 'build'
         tasks.findByName('bintrayUpload').mustRunAfter 'install'
-    } else {
-        dependsOn 'clean'
-        dependsOn 'build'
-
-        tasks.findByName('build').mustRunAfter 'clean'
     }
 }
+
+tasks.findByName('build').finalizedBy(buildAndDeploy)

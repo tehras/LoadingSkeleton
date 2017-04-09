@@ -21,7 +21,6 @@ jdk:
 script:
   - chmod +x gradlew
   - ./gradlew clean build
-  - ./gradlew buildAndUpload
 
 cache:
   directories:

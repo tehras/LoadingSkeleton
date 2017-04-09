@@ -48,3 +48,5 @@ dependencies {
 
     compile 'com.facebook.shimmer:shimmer:0.1.0@aar'
 }
+
+apply from: file('gradle/buildAndDeploy.gradle')
