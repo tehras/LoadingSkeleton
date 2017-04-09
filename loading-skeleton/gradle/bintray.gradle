@@ -1,6 +1,6 @@
 ext {
-    tagVersion = System.getenv("TRAVIS_TAG") != null ? System.getenv("TRAVIS_TAG") : 0.0
-    buildNumber = System.getenv("TRAVIS_BUILD_NUMBER") != null ? System.getenv("TRAVIS_BUILD_NUMBER") : 7
+    tagVersion = System.getenv('TRAVIS_TAG') != null ? System.getenv('TRAVIS_TAG') : 0.0
+    buildNumber = System.getenv('TRAVIS_BUILD_NUMBER') != null ? System.getenv('TRAVIS_BUILD_NUMBER') : 7
 
     bintrayRepo = 'maven'
     bintrayName = 'loading-skeleton'
