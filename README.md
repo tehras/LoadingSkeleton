@@ -5,7 +5,9 @@
 
 <h4>Gradle:</h4>
 
-```compile 'com.github.tehras:loading-skeleton:0.0.6'```
+```
+compile 'com.github.tehras:loading-skeleton:0.2.0'
+```
 
 <h4>Maven:</h4>
 
@@ -13,7 +15,7 @@
 <dependency>
   <groupId>com.github.tehras</groupId>
   <artifactId>loading-skeleton</artifactId>
-  <version>0.0.6</version>
+  <version>0.2.0</version>
   <type>pom</type>
 </dependency>
 ```
