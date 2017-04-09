@@ -37,8 +37,8 @@ if (project.rootProject.file('local1.properties').exists()) {
 }
 
 bintray {
-    user = properties != null ? properties.getProperty('bintray.user') : System.getenv('bintray.user')
-    key = properties != null ? properties.getProperty('bintray.apikey') : System.getenv('bintray.apikey')
+    user = properties != null ? properties.getProperty('bintray.user') : System.env.bintray.user
+    key = properties != null ? properties.getProperty('bintray.apikey') : System.env.bintray.apikey
 
     System.println("user -> " + " $user")
     System.println("key -> " + " $user")
@@ -57,7 +57,7 @@ bintray {
             desc = libraryDescription
             gpg {
                 sign = true //Determines whether to GPG sign the files. The default is false
-                passphrase = properties != null ? properties.getProperty('bintray.gpg.password') : System.getenv('bintray.gpg.password')
+                passphrase = properties != null ? properties.getProperty('bintray.gpg.password') : System.env.bintray.gpg.password
                 //Optional. The passphrase for GPG signing'
             }
         }
