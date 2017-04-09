@@ -1,5 +1,5 @@
 ext {
-    tagVersion = System.getenv().getOrDefault('TRAVIS_TAG', 0.0)
+    tagVersion = (System.env.TRAVIS_TAG != null && !System.env.TRAVIS_TAG.isEmpty()) ? System.getenv().getOrDefault('TRAVIS_TAG', 0.0) : 0.0
     buildNumber = System.env.TRAVIS_BUILD_NUMBER != null ? System.env.TRAVIS_BUILD_NUMBER : 7
 
     bintrayRepo = 'maven'
