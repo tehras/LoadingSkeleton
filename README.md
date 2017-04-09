@@ -3,10 +3,12 @@
 
 ![Demo GIF](/assets/demo_gif_small.gif "Demo GIF")
 
-<h3>For Gradle:</h3>
+<h4>Gradle:</h4>
+
 ```compile 'com.github.tehras:loading-skeleton:0.0.6'```
 
-For Maven:
+<h4>Maven:</h4>
+
 ```
 <dependency>
   <groupId>com.github.tehras</groupId>
