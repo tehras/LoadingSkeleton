@@ -1,6 +1,5 @@
 ext {
-    tagVersion = (System.env.TRAVIS_TAG != null && !System.env.TRAVIS_TAG.isEmpty()) ? System.getenv().getOrDefault('TRAVIS_TAG', 0.0) : 0.0
-    buildNumber = System.env.TRAVIS_BUILD_NUMBER != null ? System.env.TRAVIS_BUILD_NUMBER : 7
+    tagVersion = (System.env.TRAVIS_TAG != null && !System.env.TRAVIS_TAG.isEmpty()) ? System.getenv().getOrDefault('TRAVIS_TAG', '0.0.1') : '0.0.1'
 
     bintrayRepo = 'maven'
     bintrayName = 'loading-skeleton'
@@ -14,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/tehras/LoadingSkeleton'
     gitUrl = 'https://github.com/tehras/LoadingSkeleton.git'
 
-    libraryVersion = "$tagVersion.$buildNumber"
+    libraryVersion = "$tagVersion"
 
     developerId = 'tehras'
     developerName = 'Taras Koshkin'
