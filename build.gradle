@@ -37,3 +37,5 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 }
+
+apply from: file('gradle/buildAndDeploy.gradle')
