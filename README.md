@@ -14,4 +14,5 @@ For Maven:
   <artifactId>loading-skeleton</artifactId>
   <version>0.0.6</version>
   <type>pom</type>
-</dependency>```
+</dependency>
+```
