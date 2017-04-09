@@ -40,9 +40,6 @@ bintray {
     user = properties != null ? properties.getProperty('bintray.user') : System.env.bintray_user
     key = properties != null ? properties.getProperty('bintray.apikey') : System.env.bintray_apikey
 
-    System.println("user -> " + " $user")
-    System.println("key -> " + " $user")
-
     configurations = ['archives']
     pkg {
         repo = bintrayRepo
