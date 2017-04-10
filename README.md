@@ -56,7 +56,7 @@
 3. Implement ```fun revert(c: Context, v: T)``` - Called when ```.stop``` is called for EVERY view
 4. There are optional ```fun start(){}``` and ```fun stop(){}``` fields that are called only once at start and stop
 <br/>
-(Just take a look at the ```DefaultTextViewStreamer``` or ```DefaultImageViewStreamer``` for examples)
+(Just take a look at the <b>DefaultTextViewStreamer</b> or <b>DefaultImageViewStreamer</b> for examples)
 
 ---
 
