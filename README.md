@@ -2,14 +2,14 @@
 [![Build Status](https://travis-ci.org/tehras/LoadingSkeleton.svg?branch=master)](https://travis-ci.org/tehras/LoadingSkeleton)[ ![Download](https://api.bintray.com/packages/tehras/maven/loading-skeleton/images/download.svg) ](https://bintray.com/tehras/maven/loading-skeleton/_latestVersion)
 
 ---
-<h4>How it looks:</h4>
+<h3>How it looks:</h3>
 <br/>
 
 ![Demo GIF](/assets/demo_gif_small.gif "Demo GIF")
 
 ---
 
-<h4>How To Use Skeleton Layout:</h4>
+<h3>How To Use Skeleton Layout:</h3>
 <br/>
 
 1. Wrap your layout
@@ -48,7 +48,7 @@
                   .build()) //build, and you're done
 ```
 ---
-<h4>Creating your own converter:</h4>
+<h3>Creating your own converter:</h3>
 <br/>
 
 1. Extend ```LoadingSkeletonViewStreamer<T : View>```
@@ -60,13 +60,13 @@
 
 ---
 
-<h5>Gradle:</h5>
+<h4>Gradle:</h4>
 
 ```
 compile 'com.github.tehras:loading-skeleton:0.2.0'
 ```
 
-<h5>Maven:</h5>
+<h4>Maven:</h4>
 
 ```
 <dependency>
