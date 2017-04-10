@@ -57,6 +57,7 @@
 4. There are optional ```fun start(){}``` and ```fun stop(){}``` fields that are called only once at start and stop
 <br/>
 (Just take a look at the ```DefaultTextViewStreamer``` or ```DefaultImageViewStreamer``` for examples)
+
 ---
 
 <h5>Gradle:</h5>
