@@ -2,12 +2,15 @@
 [![Build Status](https://travis-ci.org/tehras/LoadingSkeleton.svg?branch=master)](https://travis-ci.org/tehras/LoadingSkeleton)[ ![Download](https://api.bintray.com/packages/tehras/maven/loading-skeleton/images/download.svg) ](https://bintray.com/tehras/maven/loading-skeleton/_latestVersion)
 
 ---
+<h4>How To Use Skeleton Layout:</h4>
+<br/>
 
 ![Demo GIF](/assets/demo_gif_small.gif "Demo GIF")
 
 ---
 
 <h4>How To Use Skeleton Layout:</h4>
+<br/>
 
 1. Wrap your layout
 ```
@@ -46,12 +49,13 @@
 ```
 ---
 <h4>Creating your own converter:</h4>
+<br/>
 
 1. Extend ```LoadingSkeletonViewStreamer<T : View>```
 2. Implement ```fun convert(c: Context, v: T, options: Options)``` - Called when ```.start()``` is called for EVERY view
 3. Implement ```fun revert(c: Context, v: T)``` - Called when ```.stop``` is called for EVERY view
 4. There are optional ```fun start(){}``` and ```fun stop(){}``` fields that are called only once at start and stop
-
+<br/>
 (Just take a look at the ```DefaultTextViewStreamer``` or ```DefaultImageViewStreamer``` for examples)
 ---
 
