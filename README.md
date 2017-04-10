@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/tehras/LoadingSkeleton.svg?branch=master)](https://travis-ci.org/tehras/LoadingSkeleton)[ ![Download](https://api.bintray.com/packages/tehras/maven/loading-skeleton/images/download.svg) ](https://bintray.com/tehras/maven/loading-skeleton/_latestVersion)
 
 ---
-<h4>How To Use Skeleton Layout:</h4>
+<h4>How it looks:</h4>
 <br/>
 
 ![Demo GIF](/assets/demo_gif_small.gif "Demo GIF")
