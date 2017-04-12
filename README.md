@@ -68,7 +68,7 @@
 1. Extend ```LoadingSkeletonViewStreamer<T : View>```
 2. Implement ```public void convert(Context c, T v, Options options)``` || ```fun convert(c: Context, v: T, options: Options)``` - Called when ```.start()``` is called for EVERY view
 3. Implement ```public void revert(Context c, T v)``` || ```fun revert(c: Context, v: T)``` - Called when ```.stop``` is called for EVERY view
-4. There are optional ```fun start(){}``` and ```fun stop(){}``` fields that are called only once at start and stop
+4. There are optional ```public void start(){}``` || ```fun start(){}``` and ```public void stop(){}``` ```fun stop(){}``` fields that are called only once at start and stop
 <br/>
 (Just take a look at the <b>DefaultTextViewStreamer</b> or <b>DefaultImageViewStreamer</b> for examples)
 
