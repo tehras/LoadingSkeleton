@@ -1,12 +1,16 @@
 package com.github.tehras.loadingskeletonapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.Button
 import com.github.tehras.loadingskeleton.LoadingSkeleton
 import com.github.tehras.loadingskeleton.helpers.LoadingSkeletonViewConverter
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+
+open class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,5 +34,13 @@ class MainActivity : AppCompatActivity() {
             shimmerView.stop()
             normalView.stop()
         }
+
+        instant_activity.setOnClickListener { startActivity(Intent(this, InstantLoadActivity::class.java)) }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        instant_activity.visibility = View.VISIBLE
     }
 }

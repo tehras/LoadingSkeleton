@@ -43,13 +43,27 @@
         tools:layout_constraintTop_creator="1" />
 
     <android.support.v7.widget.AppCompatButton
+        android:id="@+id/instant_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:text="Java"
+        android:textColor="@android:color/white" />
+
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/start_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/stop_button"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_toStartOf="@+id/stop_button"
         android:backgroundTint="@android:color/holo_green_dark"
         android:text="Start"
         android:textColor="@android:color/white" />
@@ -59,9 +73,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="@android:color/holo_red_dark"
         android:text="Stop"
         android:textColor="@android:color/white" />
