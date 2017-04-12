@@ -61,19 +61,24 @@ class LoadingSkeletonViewConverter private constructor() {
 
     @Suppress("unused")
     class Builder {
-        internal var converters: ArrayList<LoadingSkeletonViewStreamer<*>>? = null
+        var converters: ArrayList<LoadingSkeletonViewStreamer<*>>? = null
             private set
-        internal var color: Int = R.color.loading_skeleton_default_animation_color
+        var color: Int = R.color.loading_skeleton_default_animation_color
             private set
-        internal var cornerRadius: Float = 5f
+        var cornerRadius: Float = 5f
             private set
-        internal var gradient: Boolean = true
+        var gradient: Boolean = true
             private set
-        internal var shimmer: Boolean = true
+        var shimmer: Boolean = true
             private set
 
         fun color(color: Int): Builder {
             this.color = color
+            return this
+        }
+
+        fun cornerRadius(radius: Float): Builder {
+            this.cornerRadius = radius
             return this
         }
 

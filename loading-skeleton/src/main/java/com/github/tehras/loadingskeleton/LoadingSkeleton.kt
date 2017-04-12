@@ -1,6 +1,7 @@
 package com.github.tehras.loadingskeleton
 
 import android.content.Context
+import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,9 @@ class LoadingSkeleton constructor(context: Context, attrs: AttributeSet?, defSty
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context) : this(context, null)
+
+    private var layoutFinished: Boolean = false
+    private var startWhenLayoutFinished: Boolean = false
 
     /**
      * This is assigned to the temporary Container layout
@@ -57,7 +61,24 @@ class LoadingSkeleton constructor(context: Context, attrs: AttributeSet?, defSty
         this.addView(child)
     }
 
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+
+        layoutFinished = true
+        if (startWhenLayoutFinished) {
+            startWhenLayoutFinished()
+        }
+    }
+
     fun start() {
+        if (layoutFinished) {
+            startWhenLayoutFinished()
+        } else {
+            startWhenLayoutFinished = true
+        }
+    }
+
+    private fun startWhenLayoutFinished() {
         if (childCount != 1)
             throw RuntimeException("View must have 1 child")
 
