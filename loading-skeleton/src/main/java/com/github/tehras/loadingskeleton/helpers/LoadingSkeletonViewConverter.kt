@@ -65,7 +65,7 @@ class LoadingSkeletonViewConverter private constructor() {
             private set
         var color: Int = R.color.loading_skeleton_default_animation_color
             private set
-        var cornerRadius: Float = 5f
+            var cornerRadius: Float = 5f
             private set
         var gradient: Boolean = true
             private set

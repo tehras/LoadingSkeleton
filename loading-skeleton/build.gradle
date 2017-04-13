@@ -38,14 +38,14 @@ tasks.withType(Javadoc).all { enabled = false }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile 'com.facebook.shimmer:shimmer:0.1.0@aar'
 
     testCompile 'junit:junit:4.12'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-
-    compile 'com.facebook.shimmer:shimmer:0.1.0@aar'
+    testCompile "com.google.truth:truth:0.31"
+    testCompile 'org.mockito:mockito-core:2.7.22'
+    testCompile "org.robolectric:robolectric:3.3.2"
 }
 
 apply from: file('gradle/buildAndDeploy.gradle')

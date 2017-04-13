@@ -26,6 +26,11 @@ class LoadingSkeleton constructor(context: Context, attrs: AttributeSet?, defSty
      * This is assigned to the temporary Container layout
      */
     private val containerViewId: Int = 10001
+    /**
+     * Stores original ID
+     */
+    private var originalContainerId: Int = -1
+
     var skeletonViewConverter: LoadingSkeletonViewConverter
 
     init {
@@ -38,23 +43,35 @@ class LoadingSkeleton constructor(context: Context, attrs: AttributeSet?, defSty
         return this
     }
 
-    fun stop() {
+    private fun checkChildCount() {
         if (childCount != 1)
             throw RuntimeException("View must have 1 child")
+    }
+
+    private fun checkViewGroup(layout: View, func: (ViewGroup) -> Unit) {
+        if (layout is ViewGroup) {
+            func(layout)
+        } else {
+            throw RuntimeException("Layout must be a ViewGroup")
+        }
+    }
+
+    fun stop() {
+        //validations
+        checkChildCount()
+        checkViewGroup(getChildAt(0), {})
 
         val container = getChildAt(0) as ViewGroup
 
         if (container.id != containerViewId)
             return
 
+        if (originalContainerId != -1)
+            container.id = originalContainerId
+
         val child = container.getChildAt(0)
 
-        if (container is ViewGroup) {
-            revertView(container, this.skeletonViewConverter)
-        } else {
-            throw Exception("Layout must be a ViewGroup")
-        }
-
+        revertView(container, this.skeletonViewConverter)
         container.removeView(child)
 
         this.removeView(container)
@@ -79,21 +96,17 @@ class LoadingSkeleton constructor(context: Context, attrs: AttributeSet?, defSty
     }
 
     private fun startWhenLayoutFinished() {
-        if (childCount != 1)
-            throw RuntimeException("View must have 1 child")
+        checkChildCount()
 
         val layout = getChildAt(0)
 
         if (layout.id == containerViewId)
             return
 
+        originalContainerId = layout.id
+        
         this.removeView(layout)
-
-        if (layout is ViewGroup) {
-            populateView(layout, skeletonViewConverter)
-        } else {
-            throw Exception("Layout must be a ViewGroup")
-        }
+        checkViewGroup(layout, { populateView(it, skeletonViewConverter) })
 
         val container: ViewGroup
 
