@@ -13,7 +13,7 @@
 <br/>
 
 1. Wrap your layout
-```
+```xml
 <com.github.tehras.loadingskeleton.LoadingSkeleton
     android:id="@+id/skeleton_layout"
     android:layout_width="match_parent"
@@ -25,7 +25,7 @@
 ```
 
 2. Start and Stop
-```
+```kotlin
         //use as a normal layout
         val loadingSkeleton = findViewById(R.id.skeleton_layout) as LoadingSkeleton
         
@@ -36,10 +36,11 @@
         loadingSkeleton.stop()
 ```
 3. Setting custom actions
-```
+  
+<b>Java:</b>
+```Java
   //Set your own Skeleton View Converter
    
-  JAVA:
   loadingSkeleton
           .skeletonViewConverter(new LoadingSkeletonViewConverter.Builder()
                   .color(R.color.colorPrimary) //set color
@@ -49,8 +50,10 @@
                   .addConvert(YourLoadingSkeletonViewConverter1()) //add your own custom conver
                   .addConvert(YourLoadingSkeletonViewConverter2()) //adding converter ovverides default ones
                   .build()) //build, and you're done
-                  
-  KOTLIN:
+  ```
+  
+  <b>Kotlin:</b>
+  ```Kotlin
   loadingSkeleton
           .skeletonViewConverter(LoadingSkeletonViewConverter.Builder()
                   .color(R.color.colorPrimary) //set color
@@ -76,13 +79,13 @@
 
 <h4>Gradle:</h4>
 
-```
+```Groovy
 compile 'com.github.tehras:loading-skeleton:0.2.1'
 ```
 
 <h4>Maven:</h4>
 
-```
+```Groovy
 <dependency>
   <groupId>com.github.tehras</groupId>
   <artifactId>loading-skeleton</artifactId>
