@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Canvas;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -134,6 +135,20 @@ public class LoadingSkeletonTest {
 
         loadingSkeleton.stop();
         assertThat(loadingSkeleton.getChildAt(0).getId()).isEqualTo(defaultId);
+    }
+
+    @Test
+    public void preventDoubleStart() {
+        LoadingSkeleton loadingSkeleton = loadedViewWithChild();
+
+        loadingSkeleton.start();
+        assertThat(loadingSkeleton.getChildAt(0)).isInstanceOf(ShimmerFrameLayout.class);
+        assertThat(((ViewGroup) loadingSkeleton.getChildAt(0)).getChildAt(0)).isInstanceOf(LinearLayout.class);
+
+        loadingSkeleton.start();
+        assertThat(loadingSkeleton.getChildAt(0)).isInstanceOf(ShimmerFrameLayout.class);
+        assertThat(((ViewGroup) loadingSkeleton.getChildAt(0)).getChildAt(0)).isInstanceOf(LinearLayout.class);
+
 
     }
 

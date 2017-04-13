@@ -24,8 +24,12 @@ android {
 
     buildTypes {
         release {
+            testCoverageEnabled true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            testCoverageEnabled true
         }
     }
 
@@ -35,6 +39,7 @@ android {
 }
 
 tasks.withType(Javadoc).all { enabled = false }
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -48,4 +53,5 @@ dependencies {
     testCompile "org.robolectric:robolectric:3.3.2"
 }
 
+apply from: file('gradle/jacoco.gradle')
 apply from: file('gradle/buildAndDeploy.gradle')

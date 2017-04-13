@@ -18,9 +18,13 @@ android:
 jdk:
   - oraclejdk8
 
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
 script:
   - chmod +x gradlew
-  - ./gradlew clean build
+  - ./gradlew clean build testReleaseUnitTestCoverage
+
 
 cache:
   directories:
