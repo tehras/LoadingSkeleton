@@ -3,12 +3,16 @@ package com.github.tehras.loadingskeleton;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.github.tehras.loadingskeleton.helpers.LoadingSkeletonViewConverter;
+import com.github.tehras.loadingskeleton.shadows.ShadowResources;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +25,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.robolectric.Robolectric.setupActivity;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE)
+@Config(constants = BuildConfig.class, shadows = {ShadowResources.class})
 @SuppressLint("WrongCall")
 public class LoadingSkeletonTest {
 
@@ -83,6 +87,25 @@ public class LoadingSkeletonTest {
         }
 
         assertThat(hasException).isTrue();
+    }
+
+    @Test
+    public void populateViewTest() {
+        LoadingSkeleton loadingSkeleton = loadedViewWithChild();
+        loadingSkeleton.setSkeletonViewConverter(new LoadingSkeletonViewConverter.Builder().shimmer(true).build());
+
+        ImageView imageView = new ImageView(activity);
+        imageView.setImageDrawable(new BitmapDrawable());
+
+        ((ViewGroup) loadingSkeleton.getChildAt(0)).addView(imageView);
+
+        loadingSkeleton.start();
+
+        assertThat(imageView.getDrawable()).isNull();
+
+        loadingSkeleton.stop();
+
+        assertThat(imageView.getDrawable()).isInstanceOf(BitmapDrawable.class);
     }
 
     @Test

@@ -1,7 +1,6 @@
 package com.github.tehras.loadingskeleton.view_streamers;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.widget.TextView;
@@ -10,7 +9,6 @@ import com.github.tehras.loadingskeleton.BuildConfig;
 import com.github.tehras.loadingskeleton.R;
 import com.github.tehras.loadingskeleton.helpers.Options;
 import com.github.tehras.loadingskeleton.shadows.ShadowResources;
-import com.google.common.truth.Truth;
 
 import org.junit.Before;
 import org.junit.Test;
