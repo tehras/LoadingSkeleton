@@ -23,7 +23,7 @@ after_success:
 
 script:
   - chmod +x gradlew
-  - ./gradlew clean build testReleaseUnitTestCoverage
+  - ./gradlew clean build jacocoTestReport
 
 
 cache:
