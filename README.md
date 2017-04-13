@@ -37,7 +37,7 @@
 ```
 3. Setting custom actions
   
-Java:
+<b>Java:</b>
 ```Java
   //Set your own Skeleton View Converter
    
@@ -52,7 +52,7 @@ Java:
                   .build()) //build, and you're done
   ```
   
-  Kotlin:
+  <b>Kotlin:</b>
   ```Kotlin
   loadingSkeleton
           .skeletonViewConverter(LoadingSkeletonViewConverter.Builder()
