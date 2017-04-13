@@ -1,5 +1,7 @@
 # LoadingSkeleton
 [![Build Status](https://travis-ci.org/tehras/LoadingSkeleton.svg?branch=master)](https://travis-ci.org/tehras/LoadingSkeleton)[ ![Download](https://api.bintray.com/packages/tehras/maven/loading-skeleton/images/download.svg) ](https://bintray.com/tehras/maven/loading-skeleton/_latestVersion)
+[![codecov](https://codecov.io/gh/tehras/LoadingSkeleton/branch/master/graph/badge.svg)](https://codecov.io/gh/tehras/LoadingSkeleton)
+
 
 ---
 <h3>How it looks:</h3>
