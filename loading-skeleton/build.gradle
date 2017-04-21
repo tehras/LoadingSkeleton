@@ -1,10 +1,20 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
-apply plugin: 'com.github.dcendents.android-maven'
-
 //group = GROUP
 //version = VERSION_NAME
+
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.1'
+    }
+}
+
+apply plugin: 'com.github.dcendents.android-maven'
 
 android {
     compileSdkVersion 25
@@ -19,12 +29,10 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
         release {
-            testCoverageEnabled true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -54,5 +62,5 @@ dependencies {
     testCompile "org.robolectric:robolectric:3.3.2"
 }
 
-apply from: file('gradle/jacoco.gradle')
 apply from: file('gradle/buildAndDeploy.gradle')
+apply from: file('gradle/jacoco.gradle')
