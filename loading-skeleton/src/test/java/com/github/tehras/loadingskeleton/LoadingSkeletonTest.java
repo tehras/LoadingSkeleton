@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -42,13 +41,12 @@ public class LoadingSkeletonTest {
         LoadingSkeleton loadingSkeleton = new LoadingSkeleton(activity);
         loadingSkeleton.start();
 
-        assertThat(ReflectionUtils.getProperty(loadingSkeleton, "startWhenLayoutFinished")).isEqualTo(true);
         assertThat(ReflectionUtils.getProperty(loadingSkeleton, "layoutFinished")).isEqualTo(false);
 
 
         boolean wentIntoStart = false;
         try {
-            loadingSkeleton.onDraw(new Canvas());
+            loadingSkeleton.getViewTreeObserver().dispatchOnGlobalLayout();
         } catch (RuntimeException e) {
             wentIntoStart = true;
             assertThat(e.getMessage()).isEqualTo("View must have 1 child");
@@ -63,7 +61,6 @@ public class LoadingSkeletonTest {
         LoadingSkeleton loadingSkeleton = loadedView();
 
         assertThat(ReflectionUtils.getProperty(loadingSkeleton, "layoutFinished")).isEqualTo(true);
-        assertThat(ReflectionUtils.getProperty(loadingSkeleton, "startWhenLayoutFinished")).isEqualTo(false);
 
         try {
             loadingSkeleton.start();
@@ -178,13 +175,13 @@ public class LoadingSkeletonTest {
     private LoadingSkeleton loadedView() {
         LoadingSkeleton loadingSkeleton = new LoadingSkeleton(activity);
         loadingSkeleton.onDraw(new Canvas());
-
         return loadingSkeleton;
     }
 
     private LoadingSkeleton loadedViewWithChild() {
         LoadingSkeleton loadingSkeleton = new LoadingSkeleton(activity);
         loadingSkeleton.onDraw(new Canvas());
+        loadingSkeleton.getViewTreeObserver().dispatchOnGlobalLayout();
 
         loadingSkeleton.addView(new LinearLayout(activity));
 
