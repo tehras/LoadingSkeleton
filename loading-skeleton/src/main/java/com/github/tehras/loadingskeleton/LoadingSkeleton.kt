@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.github.tehras.loadingskeleton.helpers.LoadingSkeletonViewConverter
@@ -20,7 +21,6 @@ class LoadingSkeleton constructor(context: Context, attrs: AttributeSet?, defSty
     constructor(context: Context) : this(context, null)
 
     private var layoutFinished: Boolean = false
-    private var startWhenLayoutFinished: Boolean = false
 
     /**
      * This is assigned to the temporary Container layout
@@ -82,16 +82,21 @@ class LoadingSkeleton constructor(context: Context, attrs: AttributeSet?, defSty
         super.onDraw(canvas)
 
         layoutFinished = true
-        if (startWhenLayoutFinished) {
-            startWhenLayoutFinished()
-        }
     }
 
     fun start() {
         if (layoutFinished) {
             startWhenLayoutFinished()
         } else {
-            startWhenLayoutFinished = true
+            this.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    this@LoadingSkeleton.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    layoutFinished = true
+                    layoutFinished = true
+                    startWhenLayoutFinished()
+                }
+
+            })
         }
     }
 
@@ -104,7 +109,7 @@ class LoadingSkeleton constructor(context: Context, attrs: AttributeSet?, defSty
             return
 
         originalContainerId = layout.id
-        
+
         this.removeView(layout)
         checkViewGroup(layout, { populateView(it, skeletonViewConverter) })
 
