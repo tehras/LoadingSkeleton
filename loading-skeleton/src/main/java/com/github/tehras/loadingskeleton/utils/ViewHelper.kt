@@ -52,7 +52,7 @@ fun assignBackground(options: Options, v: View) {
         background.setColor(v.resources.getColor(options.color))
     }
 
-    background.cornerRadius = v.measuredHeight.toFloat().div(5)
+    background.cornerRadius = v.measuredHeight.toFloat().div(option.cornerRadius)
     if (!options.shimmer)
         background.alpha = 0.5f.times(255).toInt()
 
