@@ -82,7 +82,7 @@
 <h4>Gradle:</h4>
 
 ```Groovy
-compile 'com.github.tehras:loading-skeleton:{latest}'
+compile 'com.github.tehras:loading-skeleton:0.2.6'
 ```
 
 <h4>Maven:</h4>
@@ -91,7 +91,7 @@ compile 'com.github.tehras:loading-skeleton:{latest}'
 <dependency>
   <groupId>com.github.tehras</groupId>
   <artifactId>loading-skeleton</artifactId>
-  <version>{latest}</version>
+  <version>0.2.6</version>
   <type>pom</type>
 </dependency>
 ```
