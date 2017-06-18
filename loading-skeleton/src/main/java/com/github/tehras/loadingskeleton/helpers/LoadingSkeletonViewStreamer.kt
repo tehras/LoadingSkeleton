@@ -1,7 +1,6 @@
 package com.github.tehras.loadingskeleton.helpers
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 
 /**
@@ -31,18 +30,14 @@ abstract class LoadingSkeletonViewStreamer<T : View>(val clazz: Class<T>) {
     }
 
     fun convertView(c: Context, v: View, options: Options) {
-        Log.d(TAG, "convertView - ${v.javaClass.simpleName}")
         if (checkType(v)) {
-            Log.d(TAG, "convert is being called")
             @Suppress("UNCHECKED_CAST")
             convert(c, v as T, options)
         }
     }
 
     fun revertView(c: Context, v: View) {
-        Log.d(TAG, "revertView - ${v.javaClass.simpleName}")
         if (checkType(v)) {
-            Log.d(TAG, "revert is being called")
             @Suppress("UNCHECKED_CAST")
             revert(c, v as T)
         }
